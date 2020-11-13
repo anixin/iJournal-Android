@@ -9,7 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import my.personal.ijournal.adapter.TaskCategoryAdapter;
@@ -35,6 +40,7 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     List<Task> taskList;
+    View parentview = null;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -66,7 +72,6 @@ public class HomeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-
     }
 
     @Override
@@ -74,14 +79,48 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view  = inflater.inflate(R.layout.fragment_home, container, false);
+        parentview = view;
+        //View listView  = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.addTaskRV);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        taskList = new TaskRepo().getAllTaskCategory();
+        //taskList = new TaskRepo().getAllTaskCategory();
 
-        adapter = new TaskCategoryAdapter(taskList);
-        recyclerView.setAdapter(adapter);
+        TaskCategoryAdapter taskCategoryAdapter = new TaskCategoryAdapter();
+        //adapter = new TaskCategoryAdapter(taskList);
+        //recyclerView.setAdapter(adapter);
+
+        // Populating the Spinners with task category
+        /*List<Task> taskCategoryList =  new TaskRepo().getAllTaskCategory();
+        List<String> spinnerArr = new ArrayList<>();
+        for(Task task: taskCategoryList){
+            spinnerArr.add(task.getTaskName());
+        }
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, spinnerArr);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner sItem = (Spinner) listView.findViewById(R.id.taskCategorySpinner);
+        sItem.setAdapter(spinnerAdapter);
+        */
+
+        FloatingActionButton addTaskFab = (FloatingActionButton) view.findViewById(R.id.addTaskFab);
+        addTaskFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addNewTask(parentview);
+            }
+        });
+
 
         return view;
+    }
+
+    public  void addNewTask(View view){
+        TaskCategoryAdapter taskCategoryAdapter = new TaskCategoryAdapter();
+        taskList = taskCategoryAdapter.addNewTask();
+        recyclerView = (RecyclerView) view.findViewById(R.id.addTaskRV);
+        recyclerView.setHasFixedSize(false);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new TaskCategoryAdapter(taskList);
+        recyclerView.setAdapter(adapter);
     }
 }

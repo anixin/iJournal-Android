@@ -20,6 +20,7 @@ public class TaskCategoryAdapter extends RecyclerView.Adapter<TaskCategoryAdapte
     List<Task> taskList = new ArrayList<>();
     private Context context;
 
+    public TaskCategoryAdapter(){}
     public TaskCategoryAdapter(List<Task> taskList) {
         this.taskList = taskList;
         this.context = context;
@@ -52,5 +53,10 @@ public class TaskCategoryAdapter extends RecyclerView.Adapter<TaskCategoryAdapte
 
             textViewHead = (TextView) itemView.findViewById(R.id.addTaskHeaderid);
         }
+    }
+
+    public List<Task> addNewTask(){
+        taskList.add(new Task());
+        return  taskList;
     }
 }
