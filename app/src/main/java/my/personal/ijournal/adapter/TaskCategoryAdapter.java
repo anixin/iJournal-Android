@@ -55,8 +55,4 @@ public class TaskCategoryAdapter extends RecyclerView.Adapter<TaskCategoryAdapte
         }
     }
 
-    public List<Task> addNewTask(){
-        taskList.add(new Task());
-        return  taskList;
-    }
 }

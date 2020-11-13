@@ -80,6 +80,7 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view  = inflater.inflate(R.layout.fragment_home, container, false);
         parentview = view;
+        taskList = new ArrayList<>();
         //View listView  = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.addTaskRV);
         recyclerView.setHasFixedSize(false);
@@ -116,7 +117,7 @@ public class HomeFragment extends Fragment {
 
     public  void addNewTask(View view){
         TaskCategoryAdapter taskCategoryAdapter = new TaskCategoryAdapter();
-        taskList = taskCategoryAdapter.addNewTask();
+        taskList.add(new Task());
         recyclerView = (RecyclerView) view.findViewById(R.id.addTaskRV);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
