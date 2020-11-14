@@ -81,7 +81,7 @@ public class HomeFragment extends Fragment {
         View view  = inflater.inflate(R.layout.fragment_home, container, false);
         parentview = view;
         taskList = new ArrayList<>();
-        //View listView  = inflater.inflate(R.layout.fragment_home, container, false);
+        View listView  = inflater.inflate(R.layout.list_item, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.addTaskRV);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -92,16 +92,17 @@ public class HomeFragment extends Fragment {
         //recyclerView.setAdapter(adapter);
 
         // Populating the Spinners with task category
-        /*List<Task> taskCategoryList =  new TaskRepo().getAllTaskCategory();
+        List<Task> taskCategoryList =  new TaskRepo().getAllTaskCategory();
         List<String> spinnerArr = new ArrayList<>();
         for(Task task: taskCategoryList){
             spinnerArr.add(task.getTaskName());
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, spinnerArr);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         Spinner sItem = (Spinner) listView.findViewById(R.id.taskCategorySpinner);
         sItem.setAdapter(spinnerAdapter);
-        */
+
 
         FloatingActionButton addTaskFab = (FloatingActionButton) view.findViewById(R.id.addTaskFab);
         addTaskFab.setOnClickListener(new View.OnClickListener() {
